@@ -1,5 +1,5 @@
 <template>
-  <div class="iportfolio-lockscreen">
+  <div :class="[baseClass, unlockedClass]" @transitionend="handleUnlock">
     <header class="iportfolio-lockscreen-header">
       <UIIcon name="lock" size="2x" />
       <UIText className="ui-clock" element="h1"><DateTime /></UIText>
@@ -7,13 +7,23 @@
         <DateTime format="EEEE, MMMM d" />
       </UIText>
     </header>
+    <ToggleSwitch @update="handleToggle" />
   </div>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import DateTime from './DateTime.vue';
+import ToggleSwitch from './ToggleSwitch.vue';
 import UIIcon from './UIIcon.vue';
 import UIText from './UIText.vue';
+import { useLockscreen } from '@/composables/lockscreen/hooks';
+
+const { unlocked, handleToggle, handleUnlock } = useLockscreen();
+const baseClass = 'iportfolio-lockscreen';
+const unlockedClass = computed(
+  () => unlocked.value && `${baseClass}--unlocked`
+);
 </script>
 
 <style lang="scss">
