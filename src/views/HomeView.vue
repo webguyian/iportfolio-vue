@@ -1,14 +1,21 @@
 <template>
   <div class="iportfolio-app">
     <DeviceFrame>
-      <LockScreen />
+      <UIText className="welcome" element="h1" modifier="light">Welcome</UIText>
+      <LockScreen v-if="isLockScreen" />
     </DeviceFrame>
   </div>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
 import DeviceFrame from '@/components/DeviceFrame.vue';
 import LockScreen from '@/components/LockScreen.vue';
+import UIText from '@/components/UIText.vue';
+
+const route = useRoute();
+const isLockScreen = computed(() => route.path === '/');
 </script>
 
 <style lang="scss">
@@ -30,5 +37,10 @@ import LockScreen from '@/components/LockScreen.vue';
       padding-top: 0;
     }
   }
+}
+
+.welcome {
+  margin-top: 50vh;
+  font-size: $font-size-xl;
 }
 </style>
