@@ -1,0 +1,187 @@
+/* stylelint-disable declaration-no-important, property-blacklist, a11y/no-outline-none */
+
+@mixin type-body($font-size: $font-size-default, $font-weight: $font-weight-regular) {
+  font-family: $type-body;
+  font-size: $font-size;
+  font-weight: $font-weight;
+}
+
+@mixin type-body-bold($color: $white, $font-size: $font-size-default) {
+  color: $color;
+  font-family: $type-body;
+  font-size: $font-size;
+  font-weight: $font-weight-bold;
+}
+
+@mixin type-display($font-size: 30px) {
+  font-family: $type-display;
+  font-size: $font-size;
+  font-weight: $font-weight-bold;
+  letter-spacing: 0.025em;
+}
+
+@mixin type-number($font-size: $font-size-xxl) {
+  color: $white;
+  font-family: $type-body;
+  font-size: $font-size;
+  font-weight: $font-weight-light;
+}
+
+@mixin type-number-display($font-size: $font-size-xxl) {
+  color: $white;
+  font-family: $type-fixed;
+  font-size: $font-size;
+  font-weight: $font-weight-regular;
+}
+
+@mixin type-title($color: $white) {
+  display: block;
+  margin: $gutter $gutter + 5px;
+  color: $color;
+}
+
+@mixin type-icon($icon) {
+  position: relative;
+
+  &::after {
+    display: inline-block;
+    font-family: $type-icon;
+    -webkit-font-smoothing: antialiased;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    content: $icon;
+  }
+}
+
+@mixin accessibly-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+// https://leaverou.github.io/css3patterns/#carbon-fibre
+@mixin background-carbon-fibre {
+  background: radial-gradient($black 15%, transparent 16%) 0 0,
+    radial-gradient($black 15%, transparent 16%) 8px 8px,
+    radial-gradient(rgba(255, 255, 255, 0.1) 15%, transparent 20%) 0 1px,
+    radial-gradient(rgba(255, 255, 255, 0.1) 15%, transparent 20%) 8px 9px;
+  background-color: $black-dark;
+  background-size: 16px 16px;
+}
+
+@mixin flex-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: $gutter 0;
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+}
+
+@mixin stretch-column {
+  display: flex;
+  flex-flow: column wrap;
+  width: 100%;
+  height: 100%;
+  text-align: left;
+}
+
+@mixin stretch-column-nowrap {
+  @include stretch-column;
+  flex-wrap: nowrap;
+}
+
+@mixin grid-icons($count: auto-fill) {
+  display: grid;
+  grid-template-columns: repeat($count, minmax(65px, 1fr));
+  grid-gap: 20px;
+}
+
+@mixin circle($size, $radius: $border-radius-round) {
+  width: $size;
+  height: $size;
+  border-radius: $radius;
+}
+
+@mixin inner-circle($size, $background, $border) {
+  position: relative;
+
+  &::after {
+    @include circle($size);
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: background-color 0.4s;
+    border: 3px solid $border;
+    background-color: $background;
+    content: "";
+    pointer-events: none;
+  }
+}
+
+@mixin truncate {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@mixin no-appearance {
+  appearance: none;
+}
+
+@mixin unstyled-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@mixin responsive($breakpoint) {
+  @media (min-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin focus-outline {
+  &:focus {
+    outline: 2px solid $blue;
+  }
+}
+
+@mixin no-outline {
+  &:focus {
+    outline: 0;
+  }
+}
+
+@mixin settings-item {
+  padding: $gutter-s $gutter;
+  transition: background-color 0.2s;
+  border-top: $settings-border;
+  border-bottom: $settings-border;
+  background-color: $black-medium;
+}
+
+@mixin blurred-header {
+  z-index: 2;
+  width: 100%;
+  padding: $gutter-s 0;
+  background-color: rgba($black-dark, 0.85);
+  text-align: center;
+  backdrop-filter: blur(4px);
+}
