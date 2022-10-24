@@ -1,5 +1,22 @@
 <template>
-  <div class="iportfolio-app-device device device-iphone-x device-black">
+  <div v-if="isMobile" class="iportfolio-app-device">
+    <div class="device-content">
+      <div class="device-header-container">
+        <div class="device-header-bars">
+          <div class="device-header-bars-block device-header-bars-block--time">
+            IMAC
+          </div>
+          <div class="device-header-bars-block device-header-bars-block--icons">
+            <UIIcon name="signal" />
+            <UIIcon name="wifi" />
+            <UIIcon name="battery-full" />
+          </div>
+        </div>
+      </div>
+      <slot />
+    </div>
+  </div>
+  <div v-else class="iportfolio-app-device device device-iphone-x device-black">
     <div class="device-frame">
       <div class="device-content">
         <div class="device-header-container">
@@ -31,6 +48,9 @@
 
 <script setup lang="ts">
 import UIIcon from './UIIcon.vue';
+import { useBreakpoint } from '@/composables/browser/hooks';
+
+const isMobile = useBreakpoint(768);
 </script>
 
 <style lang="scss" scoped>
