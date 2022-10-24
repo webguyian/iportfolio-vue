@@ -1,11 +1,14 @@
 <template>
   <div class="iportfolio-app">
-    <DeviceFrame></DeviceFrame>
+    <DeviceFrame>
+      <LockScreen />
+    </DeviceFrame>
   </div>
 </template>
 
 <script setup lang="ts">
 import DeviceFrame from '@/components/DeviceFrame.vue';
+import LockScreen from '@/components/LockScreen.vue';
 </script>
 
 <style lang="scss">
