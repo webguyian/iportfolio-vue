@@ -4,7 +4,7 @@
       <div class="device-header-container">
         <div class="device-header-bars">
           <div class="device-header-bars-block device-header-bars-block--time">
-            IMAC
+            <LeftIndicator />
           </div>
           <div class="device-header-bars-block device-header-bars-block--icons">
             <UIIcon name="signal" />
@@ -24,7 +24,7 @@
             <div
               class="device-header-bars-block device-header-bars-block--time"
             >
-              IMAC
+              <LeftIndicator />
             </div>
             <div
               class="device-header-bars-block device-header-bars-block--icons"
@@ -47,6 +47,7 @@
 </template>
 
 <script setup lang="ts">
+import LeftIndicator from './LeftIndicator.vue';
 import UIIcon from './UIIcon.vue';
 import { useBreakpoint } from '@/composables/browser/hooks';
 
@@ -127,15 +128,6 @@ const isMobile = useBreakpoint(768);
     .ui-icon {
       color: $white;
       font-size: $font-size-s;
-    }
-  }
-
-  .device-time-label {
-    display: flex;
-
-    > .ui-btn {
-      margin-left: 6px;
-      transform: translateY(-1px);
     }
   }
 }

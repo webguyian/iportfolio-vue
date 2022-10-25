@@ -1,8 +1,8 @@
 <template>
   <div class="iportfolio-app">
     <DeviceFrame>
+      <HomeScreen />
       <LockScreen v-if="isLockScreen" />
-      <HomeScreen v-else />
     </DeviceFrame>
   </div>
 </template>
