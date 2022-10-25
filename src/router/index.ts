@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import AppView from '../views/AppView.vue';
 import HomeView from '../views/HomeView.vue';
 
 const router = createRouter({
@@ -13,6 +14,11 @@ const router = createRouter({
       path: '/home',
       name: 'home',
       component: HomeView
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'notFound',
+      component: AppView
     }
   ]
 });

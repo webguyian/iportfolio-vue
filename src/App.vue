@@ -1,12 +1,17 @@
-<script setup lang="ts">
-import { RouterView } from 'vue-router';
-</script>
-
 <template>
   <div class="root">
-    <RouterView />
+    <div class="iportfolio-app">
+      <DeviceFrame>
+        <RouterView />
+      </DeviceFrame>
+    </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import { RouterView } from 'vue-router';
+import DeviceFrame from '@/components/DeviceFrame.vue';
+</script>
 
 <style lang="scss">
 #app,
@@ -37,6 +42,26 @@ import { RouterView } from 'vue-router';
   &::-webkit-scrollbar-button,
   &::-webkit-scrollbar-corner {
     display: none;
+  }
+}
+
+.iportfolio-app {
+  position: relative;
+  height: 100%;
+  text-align: center;
+
+  @include responsive($width-medium) {
+    height: auto;
+    margin-top: 5vh;
+  }
+
+  &-view {
+    height: 100%;
+    padding-top: $gutter-m;
+
+    &--no-padding {
+      padding-top: 0;
+    }
   }
 }
 </style>
