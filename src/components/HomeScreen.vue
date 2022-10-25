@@ -36,7 +36,7 @@
       <AppIcon name="mail" noLabel>
         <MailIcon />
       </AppIcon>
-      <AppIcon name="messages" theme="faded-dark" noLabel>
+      <AppIcon name="messages" noLabel theme="faded-dark">
         <MessagesIcon />
       </AppIcon>
     </div>

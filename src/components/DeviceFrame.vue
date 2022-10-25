@@ -1,5 +1,9 @@
 <template>
-  <div v-if="isMobile" class="iportfolio-app-device">
+  <div
+    v-if="isMobile"
+    :class="theme && `iportfolio-app-device--${theme}`"
+    class="iportfolio-app-device"
+  >
     <div class="device-content">
       <div class="device-header-container">
         <div class="device-header-bars">
@@ -16,7 +20,11 @@
       <slot />
     </div>
   </div>
-  <div v-else class="iportfolio-app-device device device-iphone-x device-black">
+  <div
+    v-else
+    :class="theme && `iportfolio-app-device--${theme}`"
+    class="iportfolio-app-device device device-iphone-x device-black"
+  >
     <div class="device-frame">
       <div class="device-content">
         <div class="device-header-container">
@@ -47,11 +55,22 @@
 </template>
 
 <script setup lang="ts">
+import { ref, watch } from 'vue';
+import { useRoute } from 'vue-router';
 import LeftIndicator from './LeftIndicator.vue';
 import UIIcon from './UIIcon.vue';
 import { useBreakpoint } from '@/composables/browser/hooks';
 
 const isMobile = useBreakpoint(768);
+const route = useRoute();
+const theme = ref();
+
+watch(route, () => {
+  if (history.state) {
+    // Set theme based on history state
+    theme.value = history.state.theme;
+  }
+});
 </script>
 
 <style lang="scss" scoped>
