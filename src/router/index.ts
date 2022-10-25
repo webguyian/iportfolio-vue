@@ -21,6 +21,11 @@ const router = createRouter({
       component: () => import('../views/PhoneView.vue')
     },
     {
+      path: '/safari',
+      name: 'safari',
+      component: () => import('../views/SafariView.vue')
+    },
+    {
       path: '/map',
       name: 'map',
       component: AppView
