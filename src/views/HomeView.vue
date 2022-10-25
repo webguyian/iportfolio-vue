@@ -1,8 +1,8 @@
 <template>
   <div class="iportfolio-app">
     <DeviceFrame>
-      <UIText className="welcome" element="h1" modifier="light">Welcome</UIText>
       <LockScreen v-if="isLockScreen" />
+      <HomeScreen v-else />
     </DeviceFrame>
   </div>
 </template>
@@ -11,8 +11,8 @@
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import DeviceFrame from '@/components/DeviceFrame.vue';
+import HomeScreen from '@/components/HomeScreen.vue';
 import LockScreen from '@/components/LockScreen.vue';
-import UIText from '@/components/UIText.vue';
 
 const route = useRoute();
 const isLockScreen = computed(() => route.path === '/');
