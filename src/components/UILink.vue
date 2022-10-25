@@ -20,7 +20,7 @@
     v-else
     v-bind="$attrs"
     :class="['ui-link', icon && 'ui-link--with-icon', className]"
-    :to="to"
+    :to="state ? { name: to, state: { ...state } } : to"
   >
     <UIIcon v-if="icon" :name="icon" :size="iconSize" />
     <slot v-else />

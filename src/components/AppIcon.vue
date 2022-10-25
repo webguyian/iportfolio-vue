@@ -3,15 +3,19 @@
     <UIText v-if="noLink" :style="style" className="ui-app-icon-link"
       ><slot
     /></UIText>
-    <RouterLink v-else :to="id || nameId" class="ui-app-icon-link"
+    <UILink
+      v-else
+      :to="to"
+      :state="theme ? { theme } : undefined"
+      className="ui-app-icon-link"
       ><slot
-    /></RouterLink>
+    /></UILink>
     <UIText v-if="!noLabel" className="ui-app-icon-label">{{ name }}</UIText>
   </div>
 </template>
 
 <script setup lang="ts">
-import { RouterLink } from 'vue-router';
+import UILink from './UILink.vue';
 import UIText from './UIText.vue';
 
 const kebabCase = (str: string) =>
@@ -39,6 +43,7 @@ const baseClass = 'ui-app-icon';
 const nameId = kebabCase(props.name);
 const nameClass = `${baseClass}--${nameId}`;
 const style = props.color ? { backgroundColor: props.color } : undefined;
+const to = props.id || nameId;
 </script>
 
 <style lang="scss">
