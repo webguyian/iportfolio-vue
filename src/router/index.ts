@@ -16,6 +16,21 @@ const router = createRouter({
       component: HomeView
     },
     {
+      path: '/phone',
+      name: 'phone',
+      component: () => import('../views/PhoneView.vue')
+    },
+    {
+      path: '/map',
+      name: 'map',
+      component: AppView
+    },
+    {
+      path: '/messages',
+      name: 'messages',
+      component: AppView
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: 'notFound',
       component: AppView
