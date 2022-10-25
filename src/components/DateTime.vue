@@ -21,6 +21,8 @@ const props = withDefaults(
   }
 );
 
-const { millis } = useDateTime(props.stopped, props.initial);
+const emit = defineEmits(['update']);
+
+const { millis } = useDateTime(props.stopped, props.initial, emit);
 const datetime = computed(() => formatDate(millis.value, props.format));
 </script>

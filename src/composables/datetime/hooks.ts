@@ -1,6 +1,10 @@
 import { ref, watchEffect } from 'vue';
 
-export const useDateTime = (stopped: boolean, initial?: number) => {
+export const useDateTime = (
+  stopped: boolean,
+  initial?: number,
+  emit?: (event: 'update', ...args: Array<any>) => void
+) => {
   const initialTime = initial || Date.now();
   const millis = ref(initialTime);
   const frame = ref(0);
@@ -10,6 +14,10 @@ export const useDateTime = (stopped: boolean, initial?: number) => {
 
     millis.value = ms;
     frame.value = requestAnimationFrame(tick);
+
+    if (emit) {
+      emit('update', new Date(ms));
+    }
   };
 
   watchEffect((onCleanup) => {
