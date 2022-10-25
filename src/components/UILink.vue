@@ -5,8 +5,10 @@
     :class="['ui-link', icon && 'ui-link--with-icon', className]"
     target="_blank"
     rel="noopener noreferrer"
-    ><slot
-  /></a>
+  >
+    <UIIcon v-if="icon" :name="icon" :size="iconSize" /> <slot v-else />
+    <UIText v-if="withLabel" className="ui-link-label"><slot /></UIText>
+  </a>
   <RouterLink
     v-else-if="back"
     v-bind="$attrs"

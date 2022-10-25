@@ -1,6 +1,17 @@
 <template>
-  <div className="iportfolio-homescreen">
-    <div className="iportfolio-grid">
+  <div class="iportfolio-homescreen">
+    <div class="iportfolio-grid">
+      <AppIcon name="Calendar">
+        <UIText class="ui-app-icon-weekday">
+          <DateTime format="EE" />
+        </UIText>
+        <UIText class="ui-app-icon-day">
+          <DateTime format="d" />
+        </UIText>
+      </AppIcon>
+      <AppIcon name="Clock">
+        <ClockFace />
+      </AppIcon>
       <AppIcon name="Camera">
         <CameraIcon />
       </AppIcon>
@@ -26,7 +37,7 @@
         <SettingsIcon />
       </AppIcon>
     </div>
-    <div className="iportfolio-dock">
+    <div class="iportfolio-dock">
       <AppIcon name="phone" noLabel theme="black-dark">
         <PhoneIcon />
       </AppIcon>
@@ -45,6 +56,8 @@
 
 <script setup lang="ts">
 import AppIcon from './AppIcon.vue';
+import ClockFace from './ClockFace.vue';
+import DateTime from './DateTime.vue';
 import CalculatorIcon from './icons/CalculatorIcon.vue';
 import CameraIcon from './icons/CameraIcon.vue';
 import MailIcon from './icons/MailIcon.vue';
@@ -59,6 +72,7 @@ import SafariIcon from './icons/SafariIcon.vue';
 import SettingsIcon from './icons/SettingsIcon.vue';
 import StocksIcon from './icons/StocksIcon.vue';
 import WeatherIcon from './icons/WeatherIcon.vue';
+import UIText from './UIText.vue';
 </script>
 
 <style lang="scss">
