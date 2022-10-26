@@ -1,6 +1,15 @@
 <template>
-  <div class="safari-app">
+  <div class="safari-app" :class="hasSearch && 'safari-app--with-search'">
     <div class="safari-app-content">
+      <SearchField
+        placeholder="Search or enter website name"
+        :value="inputValue"
+        @blur="actions.focus"
+        @click="actions.cancel"
+        @input="actions.change"
+        @focus="actions.focus"
+        @submit="actions.submit"
+      />
       <UIText element="h1" type="display">Favorites</UIText>
       <LinkList :links="favorites" />
       <UIText element="h2" type="display">Frequently Visited</UIText>
@@ -11,8 +20,12 @@
 
 <script setup lang="ts">
 import LinkList from './LinkList.vue';
+import SearchField from './SearchField.vue';
 import UIText from './UIText.vue';
 import { favorites, frequents } from '@/composables/safari/constants';
+import { useWebSearch } from '@/composables/safari/hooks';
+
+const { actions, hasSearch, inputValue } = useWebSearch();
 </script>
 
 <style lang="scss">
@@ -24,7 +37,7 @@ import { favorites, frequents } from '@/composables/safari/constants';
     position: absolute;
     top: 0;
     width: 359px;
-    margin-top: $gutter;
+    margin: $gutter 0 0;
 
     > .ui-icon-search {
       left: 30px;
