@@ -1,11 +1,11 @@
 <template>
   <line
-    :class="className"
     :x1="x1"
     :x2="x2"
     :y1="y1"
     :y2="length"
     :transform="`rotate(${angle} ${width} ${width})`"
+    v-bind="$attrs"
   />
 </template>
 
@@ -13,7 +13,6 @@
 withDefaults(
   defineProps<{
     angle: number;
-    className: string;
     x1?: number;
     x2?: number;
     y1?: number;

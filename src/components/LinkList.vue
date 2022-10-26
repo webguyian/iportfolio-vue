@@ -1,16 +1,14 @@
 <template>
   <ul class="ui-link-list">
     <li v-for="link in links" :key="link.abbr" class="ui-link-list-item">
-      <UILink className="ui-link-list-item-link" :to="link.url" external>
+      <UILink class="ui-link-list-item-link" :to="link.url" external>
         <div
           class="ui-link-list-item-link-icon"
           :style="{ backgroundColor: link.color }"
         >
           <abbr title="link.name">{{ link.abbr }}</abbr>
         </div>
-        <UIText className="ui-link-list-item-link-label">{{
-          link.name
-        }}</UIText>
+        <UIText class="ui-link-list-item-link-label">{{ link.name }}</UIText>
       </UILink>
     </li>
   </ul>

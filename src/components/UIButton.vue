@@ -3,15 +3,14 @@
     :class="[
       baseClass,
       icon && `${baseClass}--with-icon`,
-      modifier && `${baseClass}--${modifier}`,
-      className
+      modifier && `${baseClass}--${modifier}`
     ]"
     :type="type"
     v-bind="$attrs"
   >
     <UIIcon v-if="icon" :name="icon" :size="size" />
     <slot v-else />
-    <UIText v-if="withLabel" className="ui-btn-label"><slot /></UIText>
+    <UIText v-if="withLabel" class="ui-btn-label"><slot /></UIText>
     <UIText v-if="icon && !withLabel" type="accessible"><slot /></UIText>
   </button>
 </template>
@@ -24,7 +23,6 @@ const baseClass = 'ui-btn';
 
 withDefaults(
   defineProps<{
-    className?: string;
     icon?: string;
     modifier?: 'anchor' | 'anchor-block';
     size?: string;

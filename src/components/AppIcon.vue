@@ -1,16 +1,16 @@
 <template>
   <div :class="[baseClass, nameClass]">
-    <UIText v-if="noLink" :style="style" className="ui-app-icon-link"
+    <UIText v-if="noLink" :style="style" class="ui-app-icon-link"
       ><slot
     /></UIText>
     <UILink
       v-else
       :to="to"
       :state="theme ? { theme } : undefined"
-      className="ui-app-icon-link"
+      class="ui-app-icon-link"
       ><slot
     /></UILink>
-    <UIText v-if="!noLabel" className="ui-app-icon-label">{{ name }}</UIText>
+    <UIText v-if="!noLabel" class="ui-app-icon-label">{{ name }}</UIText>
   </div>
 </template>
 

@@ -1,12 +1,8 @@
 <template>
   <component
     :is="element"
-    :class="[
-      'ui-text',
-      `ui-text--${type}`,
-      modifier && `ui-text--${modifier}`,
-      className
-    ]"
+    :class="['ui-text', `ui-text--${type}`, modifier && `ui-text--${modifier}`]"
+    v-bind="$attrs"
   >
     <slot />
   </component>
@@ -15,7 +11,6 @@
 <script setup lang="ts">
 withDefaults(
   defineProps<{
-    className?: string;
     element?: string;
     modifier?: 'anchor' | 'anchor-block' | 'block' | 'bold' | 'light';
     type?: 'accessible' | 'body' | 'display';

@@ -1,5 +1,5 @@
 <template>
-  <div className="iportfolio-app-view">
+  <div class="iportfolio-app-view">
     <SafariApp />
   </div>
 </template>

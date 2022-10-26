@@ -1,18 +1,19 @@
 <template>
   <a
     v-if="external"
+    v-bind="$attrs"
     :href="to"
-    :class="['ui-link', icon && 'ui-link--with-icon', className]"
+    :class="['ui-link', icon && 'ui-link--with-icon']"
     target="_blank"
     rel="noopener noreferrer"
   >
     <UIIcon v-if="icon" :name="icon" :size="iconSize" /> <slot v-else />
-    <UIText v-if="withLabel" className="ui-link-label"><slot /></UIText>
+    <UIText v-if="withLabel" class="ui-link-label"><slot /></UIText>
   </a>
   <RouterLink
     v-else-if="back"
     v-bind="$attrs"
-    :class="['ui-link', 'ui-link--back', className]"
+    :class="['ui-link', 'ui-link--back']"
     :to="to"
   >
     <UIIcon name="chevron-left" />
@@ -21,12 +22,12 @@
   <RouterLink
     v-else
     v-bind="$attrs"
-    :class="['ui-link', icon && 'ui-link--with-icon', className]"
+    :class="['ui-link', icon && 'ui-link--with-icon']"
     :to="state ? { name: to, state: { ...state } } : to"
   >
     <UIIcon v-if="icon" :name="icon" :size="iconSize" />
     <slot v-else />
-    <UIText v-if="withLabel" className="ui-link-label"><slot /></UIText>
+    <UIText v-if="withLabel" class="ui-link-label"><slot /></UIText>
   </RouterLink>
 </template>
 
@@ -38,7 +39,6 @@ import UIText from './UIText.vue';
 withDefaults(
   defineProps<{
     back?: boolean;
-    className?: string;
     external?: boolean;
     icon?: string;
     iconSize?: string;

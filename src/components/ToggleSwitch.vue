@@ -9,7 +9,7 @@
       class="ui-toggle-switch-slider"
       @transitionend="$emit('update')"
     />
-    <UIText className="ui-toggle-switch-label">slide to unlock</UIText>
+    <UIText class="ui-toggle-switch-label">slide to unlock</UIText>
   </label>
 </template>
 

@@ -30,11 +30,11 @@
     </header>
     <div class="phone-app-info">
       <div v-for="link in links" :key="link.label" class="phone-app-info-row">
-        <UIText className="phone-app-info-label" element="h2">{{
+        <UIText class="phone-app-info-label" element="h2">{{
           link.label
         }}</UIText>
         <UILink
-          className="phone-app-info-value"
+          class="phone-app-info-value"
           :to="link.to"
           :data-hover="link.value"
           external
@@ -42,13 +42,13 @@
         >
       </div>
       <div class="phone-app-info-row">
-        <UIText className="phone-app-info-label" element="h2">Location</UIText>
+        <UIText class="phone-app-info-label" element="h2">Location</UIText>
         <UILink
           to="map"
-          className="phone-app-info-map-link"
+          class="phone-app-info-map-link"
           :state="{ theme: 'light', center: COORDINATES_PHILADELPHIA }"
         >
-          <UIText className="phone-app-info-map-link-text" element="h2">
+          <UIText class="phone-app-info-map-link-text" element="h2">
             <UIIcon name="map-marker-alt" /> View Map
           </UIText>
           <img alt="Philadelphia, PA" :src="STATIC_MAP_API" />

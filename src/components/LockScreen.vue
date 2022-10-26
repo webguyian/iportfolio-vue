@@ -2,8 +2,8 @@
   <div :class="[baseClass, unlockedClass]" @transitionend="handleUnlock">
     <header class="iportfolio-lockscreen-header">
       <UIIcon name="lock" size="2x" />
-      <UIText className="ui-clock" element="h1"><DateTime /></UIText>
-      <UIText className="ui-date" element="h2">
+      <UIText class="ui-clock" element="h1"><DateTime /></UIText>
+      <UIText class="ui-date" element="h2">
         <DateTime format="EEEE, MMMM d" />
       </UIText>
     </header>
