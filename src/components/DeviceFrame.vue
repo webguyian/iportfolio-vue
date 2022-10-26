@@ -108,6 +108,8 @@ watch(route, () => {
   }
 
   .device-content {
+    position: relative;
+    z-index: 10;
     height: 100%;
     background-color: $black-darker;
     overflow: hidden;
