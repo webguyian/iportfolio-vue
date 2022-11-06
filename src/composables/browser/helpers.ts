@@ -1,3 +1,5 @@
+import { fromUnixTime, isAfter } from 'date-fns';
+
 /**
  * Determine the mobile operating system.
  * If mobile OS is detected, returns 'iOS', 'Android', or 'Windows Phone'
@@ -21,4 +23,43 @@ export const getMobileOperatingSystem = () => {
   }
 
   return null;
+};
+
+/**
+ * Get default fetch options
+ * @param jwt
+ * @param overrides
+ * @returns
+ */
+export const getOptions = (
+  jwt: {
+    expires: number;
+    token: string;
+  },
+  overrides = {}
+) => {
+  return {
+    method: 'GET',
+    withCredentials: true,
+    credentials: 'include',
+    headers: {
+      Authorization: `Bearer ${jwt.token}`
+    },
+    ...overrides
+  };
+};
+
+/**
+ * Determine if token has expired
+ * @param token
+ * @param today
+ * @returns {Boolean}
+ */
+export const isTokenValid = (
+  token: { expires: number; token: string },
+  today = new Date()
+) => {
+  const date = fromUnixTime(token.expires);
+
+  return isAfter(date, today);
 };
