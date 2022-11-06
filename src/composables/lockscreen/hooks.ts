@@ -10,7 +10,7 @@ export const useLockscreen = () => {
   };
   const handleUnlock = (event: Event) => {
     if (event.target === event.currentTarget) {
-      router.push('/home');
+      router.push({ name: 'home' });
     }
   };
 
