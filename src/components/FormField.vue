@@ -3,6 +3,10 @@
     <textarea
       class="ui-form-field-textarea"
       :id="id"
+      :value="modelValue"
+      @input="
+        $emit('update:modelValue', ($event.target as HTMLTextAreaElement).value)
+      "
       v-bind="$attrs"
     ></textarea>
   </div>
@@ -15,6 +19,10 @@
       :id="id"
       :type="type"
       :disabled="disabled"
+      :value="modelValue"
+      @input="
+        $emit('update:modelValue', ($event.target as HTMLInputElement).value)
+      "
       v-bind="$attrs"
       autocomplete="off"
     />
@@ -28,12 +36,14 @@ withDefaults(
     id: string;
     label?: string;
     type?: string;
+    modelValue?: string;
   }>(),
   {
     disabled: false,
     type: 'text'
   }
 );
+defineEmits(['update:modelValue']);
 </script>
 
 <style lang="scss">

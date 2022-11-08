@@ -26,6 +26,11 @@ const router = createRouter({
       component: () => import('../views/SafariView.vue')
     },
     {
+      path: '/mail',
+      name: 'mail',
+      component: () => import('../views/MailView.vue')
+    },
+    {
       path: '/map',
       name: 'map',
       component: AppView
