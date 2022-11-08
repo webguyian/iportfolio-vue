@@ -31,13 +31,13 @@ const router = createRouter({
       component: () => import('../views/MailView.vue')
     },
     {
-      path: '/map',
-      name: 'map',
-      component: AppView
-    },
-    {
       path: '/messages',
       name: 'messages',
+      component: () => import('../views/MessagesView.vue')
+    },
+    {
+      path: '/map',
+      name: 'map',
       component: AppView
     },
     {

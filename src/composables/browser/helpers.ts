@@ -31,13 +31,23 @@ export const getMobileOperatingSystem = () => {
  * @param overrides
  * @returns
  */
+type Options = {
+  method: string;
+  withCredentials?: boolean;
+  credentials?: string;
+  [key: string]: any;
+  headers: {
+    [key: string]: string;
+    Authorization: string;
+  };
+};
 export const getOptions = (
   jwt: {
     expires: number;
     token: string;
   },
   overrides = {}
-) => {
+): Options => {
   return {
     method: 'GET',
     withCredentials: true,

@@ -125,13 +125,18 @@ export const useToken = () => {
 
 export const useFetch = (
   endpoint: Ref<string>,
-  overrides: Ref<object>
+  overrides: Ref<object>,
+  withData?: boolean
 ): Ref<any> => {
   const data = ref(null);
   const jwt = useToken();
 
   const fetchData = async () => {
     const options = getOptions(jwt.value!, overrides.value);
+
+    if (withData) {
+      options.headers['Content-Type'] = 'application/json';
+    }
 
     const response = await fetch(endpoint.value, options as RequestInit);
     const result = await response.json();
@@ -143,7 +148,7 @@ export const useFetch = (
     }
   };
 
-  watch(endpoint, () => {
+  watch([endpoint, overrides], () => {
     if (jwt.value && endpoint.value) {
       fetchData();
     }
