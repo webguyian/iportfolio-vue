@@ -1,5 +1,9 @@
 import { onMounted, onUpdated, ref, watch } from 'vue';
-import { useFetch, useStorageCache } from '@/composables/browser/hooks';
+import {
+  useFetch,
+  useFetchWithData,
+  useStorageCache
+} from '@/composables/browser/hooks';
 import { API_MESSAGES } from './constants';
 
 interface FormElements extends HTMLCollection {
@@ -16,7 +20,7 @@ type Message = {
 
 export const useMessages = () => {
   const endpoint = ref('');
-  const options = ref();
+  const data = ref();
   const container = ref(null);
   const messages = ref<Message[]>([]);
   const cache = useStorageCache(
@@ -24,7 +28,8 @@ export const useMessages = () => {
     messages,
     (storedValue) => !storedValue.length
   );
-  const data = useFetch(endpoint, options, true);
+  const initialResponse = useFetch(endpoint, data);
+  const response = useFetchWithData(API_MESSAGES, data);
 
   const onSubmit = (event: Event) => {
     const form = event.target as HTMLFormElement;
@@ -39,10 +44,7 @@ export const useMessages = () => {
     };
 
     if (message.length) {
-      options.value = {
-        method: 'POST',
-        body: JSON.stringify(fromMessage)
-      };
+      data.value = fromMessage;
       messages.value.push(fromMessage);
     }
 
@@ -71,7 +73,13 @@ export const useMessages = () => {
     }
   });
 
-  watch(data, (newMessage: Message) => {
+  watch(initialResponse, (newMessage: Message) => {
+    if (newMessage) {
+      messages.value.push(newMessage);
+    }
+  });
+
+  watch(response, (newMessage: Message) => {
     if (newMessage) {
       messages.value.push(newMessage);
     }

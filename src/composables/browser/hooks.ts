@@ -91,8 +91,8 @@ export const useStorageCache = (
   });
 
   onUnmounted(() => {
-    if (key && storedValue) {
-      setValue(storedValue);
+    if (key && currentValue.value) {
+      setValue(currentValue);
     }
   });
 
@@ -125,7 +125,7 @@ export const useToken = () => {
 
 export const useFetch = (
   endpoint: Ref<string>,
-  overrides: Ref<object>,
+  overrides: Ref<{ [key: string]: any }>,
   withData?: boolean
 ): Ref<any> => {
   const data = ref(null);
@@ -148,11 +148,36 @@ export const useFetch = (
     }
   };
 
-  watch([endpoint, overrides], () => {
+  watch(endpoint, () => {
     if (jwt.value && endpoint.value) {
-      fetchData();
+      if (!withData) {
+        fetchData();
+      }
+    }
+  });
+
+  watch(overrides, () => {
+    if (withData && jwt.value && endpoint.value) {
+      if (overrides.value && overrides.value.body) {
+        fetchData();
+      }
     }
   });
 
   return data;
+};
+
+export const useFetchWithData = (url: string, data: Ref<object>): Ref<any> => {
+  const endpoint = ref(url);
+  const options = ref();
+  const response = useFetch(endpoint, options, true);
+
+  watch(data, (newData) => {
+    options.value = {
+      method: 'POST',
+      body: JSON.stringify(newData)
+    };
+  });
+
+  return response;
 };
