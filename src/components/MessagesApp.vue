@@ -9,7 +9,7 @@
         <UIText>Ian Mac</UIText>
       </UILink>
     </header>
-    <div class="messages-app-list-container">
+    <div class="messages-app-list-container" ref="container">
       <ul className="messages-app-list">
         <li
           v-for="message in messages"
@@ -55,7 +55,7 @@ const messageClass = 'messages-app-list-item';
 const messageFromClass = `${messageClass}--from`;
 const messageToClass = `${messageClass}--to`;
 
-const { messages, onSubmit } = useMessages();
+const { container, messages, onSubmit } = useMessages();
 </script>
 
 <style lang="scss">

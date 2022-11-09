@@ -1,5 +1,5 @@
-import { onMounted, ref, watch } from 'vue';
-import { useFetch } from '@/composables/browser/hooks';
+import { onMounted, onUpdated, ref, watch } from 'vue';
+import { useFetch, useStorageCache } from '@/composables/browser/hooks';
 import { API_MESSAGES } from './constants';
 
 interface FormElements extends HTMLCollection {
@@ -17,7 +17,13 @@ type Message = {
 export const useMessages = () => {
   const endpoint = ref('');
   const options = ref();
+  const container = ref(null);
   const messages = ref<Message[]>([]);
+  const cache = useStorageCache(
+    'messages',
+    messages,
+    (storedValue) => !storedValue.length
+  );
   const data = useFetch(endpoint, options, true);
 
   const onSubmit = (event: Event) => {
@@ -45,7 +51,24 @@ export const useMessages = () => {
   };
 
   onMounted(() => {
-    endpoint.value = API_MESSAGES;
+    if (cache.value && cache.value.length) {
+      // Set messages from cache
+      messages.value.push(...cache.value);
+    } else {
+      // Fetch messages from API
+      endpoint.value = API_MESSAGES;
+    }
+  });
+
+  onUpdated(() => {
+    if (container.value && messages.value.length > 9) {
+      const containerEl = container.value as HTMLDivElement;
+      const li = containerEl.querySelector('li:last-child');
+
+      if (li) {
+        li.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
   });
 
   watch(data, (newMessage: Message) => {
@@ -55,6 +78,7 @@ export const useMessages = () => {
   });
 
   return {
+    container,
     messages,
     onSubmit
   };
