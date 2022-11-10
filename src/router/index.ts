@@ -36,6 +36,11 @@ const router = createRouter({
       component: () => import('../views/MessagesView.vue')
     },
     {
+      path: '/calendar',
+      name: 'calendar',
+      component: () => import('../views/CalendarView.vue')
+    },
+    {
       path: '/map',
       name: 'map',
       component: AppView
