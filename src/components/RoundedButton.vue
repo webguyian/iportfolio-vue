@@ -1,5 +1,7 @@
 <template>
-  <UIButton class="ui-btn--rounded" v-bind="$attrs" />
+  <UIButton class="ui-btn--rounded" v-bind="$attrs">
+    <slot />
+  </UIButton>
 </template>
 
 <script setup lang="ts">
