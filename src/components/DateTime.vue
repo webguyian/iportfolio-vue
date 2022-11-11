@@ -10,6 +10,7 @@ import { useDateTime } from '@/composables/datetime/hooks';
 const props = withDefaults(
   defineProps<{
     format?: string;
+    fromDate?: Date;
     initial?: number;
     relativeFormat?: string;
     stopped?: boolean;
@@ -24,5 +25,9 @@ const props = withDefaults(
 const emit = defineEmits(['update']);
 
 const { millis } = useDateTime(props.stopped, props.initial, emit);
-const datetime = computed(() => formatDate(millis.value, props.format));
+const datetime = computed(() =>
+  props.fromDate
+    ? formatDate(props.fromDate, props.format)
+    : formatDate(millis.value, props.format)
+);
 </script>
