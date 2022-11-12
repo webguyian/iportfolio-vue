@@ -55,10 +55,8 @@ export const useLocalStorage = (
           typeof newValue.value === 'object' &&
           !(newValue.value instanceof Array)
         ) {
-          if (newValue.value !== storedValue.value) {
-            // Include timestamp on objects
-            newValue.value.timestamp = Date.now();
-          }
+          // Include timestamp on objects
+          newValue.value.timestamp = Date.now();
         }
 
         // Save to local storage
