@@ -53,16 +53,6 @@ const controlStateClass = props.timerRunning
   justify-content: center;
   height: auto;
 
-  .picker-container {
-    margin-bottom: $gutter;
-  }
-
-  .picker-item {
-    width: 75px;
-    height: 36px;
-    line-height: 36px;
-  }
-
   &-controls {
     display: flex;
     align-items: flex-start;
