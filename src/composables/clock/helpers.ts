@@ -1,4 +1,5 @@
 import { addMilliseconds } from 'date-fns';
+import type { Duration } from './types';
 
 export const getLapIndex = (index: number, laps: Array<any>) => {
   const nonEmptyLaps = laps.filter((lap) => lap > 0);
@@ -19,7 +20,7 @@ export const getRangeArray = (max: number) => {
   return [...Array(max).keys()];
 };
 
-export const getSeconds = (values: any) => {
+export const getSeconds = (values: Duration) => {
   const { hours, minutes, seconds } = values;
 
   const hoursInSeconds = hours * 60 * 60;
@@ -28,7 +29,7 @@ export const getSeconds = (values: any) => {
   return hoursInSeconds + minutesInSeconds + seconds;
 };
 
-export const getExpiration = (duration: number, cache: any) => {
+export const getExpiration = (duration: number, cache?: any) => {
   const cacheSeconds = cache && cache.allSeconds;
 
   if (cache && cache.running) {
