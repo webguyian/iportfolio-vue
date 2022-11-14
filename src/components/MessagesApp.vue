@@ -10,7 +10,7 @@
       </UILink>
     </header>
     <div class="messages-app-list-container" ref="container">
-      <ul className="messages-app-list">
+      <ul class="messages-app-list">
         <li
           v-for="message in messages"
           :key="message.id"
