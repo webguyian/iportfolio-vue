@@ -159,6 +159,32 @@ export const useLaps = (timer: Ref<number>, timerRunning: Ref<boolean>) => {
   return { laps, updateLaps, hasLaps };
 };
 
+export const useRadialOffset = (
+  allSeconds: Ref<number>,
+  duration: Ref<number>,
+  radius: number
+) => {
+  const circumference = (2 * radius * 22) / 7;
+  const initialSeconds = ref(allSeconds.value);
+  const offset = ref(0);
+
+  watch([allSeconds, duration, offset], () => {
+    if (!offset.value) {
+      const initialOffset = (allSeconds.value / duration.value) * circumference;
+      const updatedOffset = circumference - Math.round(initialOffset);
+
+      if (updatedOffset === circumference || updatedOffset < 0) {
+        // Exit early
+        return;
+      }
+
+      offset.value = updatedOffset;
+    }
+  });
+
+  return { initialSeconds, offset };
+};
+
 export const useStopwatch = (startTime = 0, start = false) => {
   const timerRunning = ref(start);
   const interval = ref<number | null>(null);
