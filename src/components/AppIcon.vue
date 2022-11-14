@@ -17,12 +17,7 @@
 <script setup lang="ts">
 import UILink from './UILink.vue';
 import UIText from './UIText.vue';
-
-const kebabCase = (str: string) =>
-  str
-    .replace(/([a-z])([A-Z])/g, '$1-$2')
-    .replace(/[\s_]+/g, '-')
-    .toLowerCase();
+import { toKebabCase } from '@/composables/browser/helpers';
 
 const props = withDefaults(
   defineProps<{
@@ -40,7 +35,7 @@ const props = withDefaults(
 );
 
 const baseClass = 'ui-app-icon';
-const nameId = kebabCase(props.name);
+const nameId = toKebabCase(props.name);
 const nameClass = `${baseClass}--${nameId}`;
 const style = props.color ? { backgroundColor: props.color } : undefined;
 const to = props.id || nameId;
