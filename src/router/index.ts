@@ -41,6 +41,26 @@ const router = createRouter({
       component: () => import('../views/CalendarView.vue')
     },
     {
+      path: '/clock',
+      name: 'clock',
+      component: () => import('../views/ClockView.vue'),
+      redirect: {
+        name: 'stopwatch'
+      },
+      children: [
+        {
+          path: 'stopwatch',
+          name: 'stopwatch',
+          component: () => import('../components/ClockStopwatch.vue')
+        },
+        {
+          path: 'timer',
+          name: 'timer',
+          component: () => import('../components/ClockTimer.vue')
+        }
+      ]
+    },
+    {
       path: '/map',
       name: 'map',
       component: AppView
