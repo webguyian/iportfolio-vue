@@ -179,3 +179,63 @@ export const useFetchWithData = (url: string, data: Ref<object>): Ref<any> => {
 
   return response;
 };
+
+export const useVideoCanvas = () => {
+  const canvasRef = ref<HTMLCanvasElement | null>(null);
+  const videoRef = ref<HTMLVideoElement | null>(null);
+  const defaultFormat = 'image/png';
+  const getElements = () => {
+    const canvas = canvasRef.value;
+    const context = canvas && canvas.getContext('2d');
+    const video = videoRef.value;
+
+    return {
+      canvas,
+      context,
+      video
+    };
+  };
+
+  const onPlay = () => {
+    const { canvas, context, video } = getElements();
+
+    function step() {
+      if (canvas && context && video) {
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      }
+
+      requestAnimationFrame(step);
+    }
+
+    if (video && !video.paused) {
+      requestAnimationFrame(step);
+    }
+  };
+
+  const takePhoto = (format = defaultFormat) => {
+    const { canvas, context, video } = getElements();
+
+    if (canvas && context && video) {
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      return canvas.toDataURL(format);
+    }
+  };
+
+  const clearPhoto = (format = defaultFormat) => {
+    const { canvas, context } = getElements();
+
+    if (canvas && context) {
+      context.fillStyle = '#1c1c1e';
+      context.fillRect(0, 0, canvas.width, canvas.height);
+      return canvas.toDataURL(format);
+    }
+  };
+
+  const actions = {
+    onPlay,
+    takePhoto,
+    clearPhoto
+  };
+
+  return { canvasRef, videoRef, actions };
+};
