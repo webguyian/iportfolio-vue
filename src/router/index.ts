@@ -61,6 +61,11 @@ const router = createRouter({
       ]
     },
     {
+      path: '/camera',
+      name: 'camera',
+      component: () => import('../views/CameraView.vue')
+    },
+    {
       path: '/map',
       name: 'map',
       component: AppView
