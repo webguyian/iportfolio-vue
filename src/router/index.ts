@@ -66,6 +66,31 @@ const router = createRouter({
       component: () => import('../views/CameraView.vue')
     },
     {
+      path: '/photos',
+      name: 'photos',
+      component: () => import('../views/PhotosView.vue'),
+      redirect: {
+        name: 'gallery'
+      },
+      children: [
+        {
+          path: 'gallery',
+          name: 'gallery',
+          component: () => import('../components/PhotoGallery.vue')
+        },
+        {
+          path: 'gallery/:id',
+          name: 'photo',
+          component: () => import('../components/PhotoFrame.vue')
+        },
+        {
+          path: 'favorites',
+          name: 'favorites',
+          component: () => import('../components/PhotoGallery.vue')
+        }
+      ]
+    },
+    {
       path: '/map',
       name: 'map',
       component: AppView
