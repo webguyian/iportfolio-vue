@@ -1,4 +1,9 @@
-import { fromUnixTime, isAfter } from 'date-fns';
+import {
+  differenceInHours,
+  differenceInDays,
+  fromUnixTime,
+  isAfter
+} from 'date-fns';
 
 /**
  * Determine the mobile operating system.
@@ -72,6 +77,25 @@ export const isTokenValid = (
   const date = fromUnixTime(token.expires);
 
   return isAfter(date, today);
+};
+
+export const isExpired = (
+  timestamp: number,
+  expiration: string,
+  startDate = new Date()
+) => {
+  const [amount, unit] = expiration.split('');
+  const number = Number(amount);
+
+  let difference;
+
+  if (unit === 'H') {
+    difference = differenceInHours(startDate, new Date(timestamp));
+  } else {
+    difference = differenceInDays(startDate, new Date(timestamp));
+  }
+
+  return difference >= number;
 };
 
 export const toKebabCase = (str: string) =>
