@@ -1,13 +1,15 @@
 import { onMounted, reactive, ref, watch } from 'vue';
+import { useRouter } from 'vue-router';
 import { useFetch, useStorageCache } from '@/composables/browser/hooks';
-
 import { API_MAIL, defaultBody, defaultValues } from './constants';
 import type { MailFields } from './types';
-import { useRouter } from 'vue-router';
+import { getFields } from './helpers';
 
 export const useMail = (populateFields?: MailFields) => {
   const initialValues =
-    populateFields && populateFields.body ? populateFields : defaultValues;
+    populateFields && populateFields.body
+      ? getFields(populateFields)
+      : defaultValues;
   const fields = reactive({ ...initialValues });
   const router = useRouter();
   const endpoint = ref('');
@@ -39,7 +41,9 @@ export const useMail = (populateFields?: MailFields) => {
   const onSubmit = async () => {
     const formData = new FormData();
 
-    Object.keys(fields).forEach(async (key) => {
+    await Object.keys(fields).reduce(async (promise, key) => {
+      await promise;
+
       if (key === 'attachment' && fields.attachment.length) {
         // Covert base64 data to blob
         const blob = await fetch(fields.attachment).then((res) => res.blob());
@@ -48,7 +52,7 @@ export const useMail = (populateFields?: MailFields) => {
       } else {
         formData.append(key, fields[key as keyof typeof fields]);
       }
-    });
+    }, Promise.resolve());
 
     endpoint.value = API_MAIL;
     options.value = {

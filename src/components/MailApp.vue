@@ -45,10 +45,10 @@
       v-model="fields.body"
       @focus="handleFocus"
     />
-    <div v-if="attachment" class="mail-app-attachment">
+    <div v-if="fields.attachment" class="mail-app-attachment">
       <img
         class="mail-app-attachment-image"
-        :src="attachment"
+        :src="fields.attachment"
         alt="Attached image"
       />
     </div>
@@ -80,7 +80,6 @@ import { useMail } from '@/composables/mail/hooks';
 
 const { actions, fields, state } = useMail(window.history.state);
 const title = computed(() => fields.subject || 'New Message');
-const attachment = '';
 const handleFocus = (event: Event) => {
   const target = event.target as HTMLTextAreaElement;
 
