@@ -9,7 +9,11 @@ import type { Photo } from '@/composables/camera/types';
 export const formatDate = (date: Date | number) =>
   format(date, `MMM d, yyyy 'at' h:mm a`);
 
-export const getCreatedDate = (photo: Photo) => {
+export const getCreatedDate = (photo: Photo | null) => {
+  if (!photo) {
+    return +new Date();
+  }
+
   return photo.metadata.dateCreated;
 };
 

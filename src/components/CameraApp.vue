@@ -57,7 +57,10 @@
       @update:filter="actions.onFilter"
     />
     <div class="camera-app-bottom-bar">
-      <UILink v-if="hasPhoto" to="/photos">
+      <UILink
+        v-if="hasPhoto"
+        :to="`/photos/gallery/${getCreatedDate(elements.photo.value)}`"
+      >
         <img class="camera-app-image" :src="elements.photo.value?.image" />
       </UILink>
       <UILink v-else to="/">
@@ -94,6 +97,7 @@ import type {
   CameraControl,
   CameraControlState
 } from '@/composables/camera/types';
+import { getCreatedDate } from '@/composables/photos/helpers';
 
 const { actions, controls, elements } = useCamera();
 const controlClass = 'camera-app-control';

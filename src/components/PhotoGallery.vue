@@ -36,7 +36,10 @@
 import { useRouter } from 'vue-router';
 import UIButton from './UIButton.vue';
 import UIText from './UIText.vue';
-import { formatCreatedDate } from '@/composables/photos/helpers';
+import {
+  formatCreatedDate,
+  getCreatedDate
+} from '@/composables/photos/helpers';
 import { usePhotos } from '@/composables/photos/hooks';
 import type { Photo } from '@/composables/camera/types';
 
@@ -46,7 +49,7 @@ const showPhoto = (photo: Photo) => {
   router.push({
     name: 'photo',
     params: {
-      id: photo.metadata.dateCreated
+      id: getCreatedDate(photo)
     },
     state: {
       theme: 'black-dark'
