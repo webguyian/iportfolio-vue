@@ -1,7 +1,8 @@
 import { computed, ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { useLocalStorage } from '@/composables/browser/hooks';
 import type { Photo } from '@/composables/camera/types';
+import { defaultBody, defaultValues } from '@/composables/mail/constants';
 import { getCreatedDate } from './helpers';
 
 export const usePhotos = () => {
@@ -32,11 +33,26 @@ export const usePhotos = () => {
 };
 
 export const usePhoto = (id: number) => {
+  const router = useRouter();
   const { photos, setValue } = usePhotos();
   const currentPhoto = computed(() =>
     photos.value.find((photo: Photo) => photo.metadata.dateCreated === id)
   );
   const showControls = ref(false);
+  const onCancel = () => {
+    showControls.value = false;
+  };
+  const onConfirmDelete = () => {
+    showControls.value = true;
+  };
+  const onDelete = () => {
+    const updatedPhotos = photos.value.filter(
+      (photo: Photo) => photo !== currentPhoto.value
+    );
+
+    setValue(updatedPhotos);
+    router.back();
+  };
   const onFavorite = () => {
     const updatedPhotos = photos.value.map((photo: Photo) => {
       return currentPhoto.value === photo
@@ -54,8 +70,23 @@ export const usePhoto = (id: number) => {
     setValue(updatedPhotos);
   };
 
+  const onShare = () => {
+    router.push({
+      name: 'mail',
+      state: {
+        ...defaultValues,
+        attachment: currentPhoto.value.image,
+        body: 'Check out my awesome selfie!'.concat(defaultBody)
+      }
+    });
+  };
+
   const actions = {
-    onFavorite
+    onCancel,
+    onConfirmDelete,
+    onDelete,
+    onFavorite,
+    onShare
   };
 
   return { actions, photo: currentPhoto, showControls };
