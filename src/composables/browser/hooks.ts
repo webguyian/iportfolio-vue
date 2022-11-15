@@ -1,6 +1,6 @@
 import { onMounted, onUnmounted, ref, watch, watchEffect, type Ref } from 'vue';
 import { API_TOKEN } from './constants';
-import { getOptions, isTokenValid } from './helpers';
+import { getOptions, isExpired, isTokenValid } from './helpers';
 
 export const useBreakpoint = (breakpoint: number) => {
   const matchesBreakpoint = ref(true);
@@ -74,7 +74,7 @@ export const useStorageCache = (
   key: string,
   currentValue: any,
   deleteFn?: (value: any) => boolean
-) => {
+): Ref<any> => {
   const { setValue, storedValue } = useLocalStorage(
     key,
     currentValue,
@@ -175,6 +175,30 @@ export const useFetchWithData = (url: string, data: Ref<object>): Ref<any> => {
   });
 
   return response;
+};
+
+export const useFetchAndCache = (
+  url: string,
+  key: string,
+  expiration: string
+) => {
+  const endpoint = ref('');
+  const options = ref();
+  const response = useFetch(endpoint, options);
+  const cache = useStorageCache(key, response);
+  const cacheExpired =
+    cache.value && isExpired(cache.value.timestamp, expiration);
+
+  onMounted(() => {
+    if (url) {
+      if (!cache.value || cacheExpired) {
+        // Fetch if no cache or cache is expired
+        endpoint.value = url;
+      }
+    }
+  });
+
+  return cache.value && !cacheExpired ? cache : response;
 };
 
 export const useVideoCanvas = () => {
