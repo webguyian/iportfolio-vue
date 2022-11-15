@@ -22,6 +22,7 @@ export type Photo = {
   image?: string;
   metadata: {
     dateCreated: number;
+    favorited?: boolean;
     filter: Filters;
   };
 };
