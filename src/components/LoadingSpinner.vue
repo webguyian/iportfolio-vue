@@ -1,0 +1,122 @@
+<template>
+  <div class="loading-wrapper">
+    <UIText v-if="label">{{ label }}</UIText>
+    <UIText v-else type="accessible">Loading...</UIText>
+    <div class="loading">
+      <div v-for="(_, index) in ticks" :key="index" class="loading-tick"></div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import UIText from './UIText.vue';
+
+defineProps<{
+  label?: string;
+}>();
+
+const ticks = new Array(12).fill(null);
+</script>
+
+<style lang="scss">
+.loading {
+  display: block;
+  width: 180px;
+  height: 180px;
+  transform: scale(0.5);
+  border-radius: 30px;
+  background: $gray-dark;
+
+  &-wrapper {
+    @include flex-center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    flex-flow: column wrap;
+    transform: translate(-50%, -90px);
+  }
+}
+
+.loading-tick {
+  position: absolute;
+  width: 8px;
+  height: 30px;
+  margin: -15px 0 0 -4px;
+  border-radius: 4px;
+  background-color: $gray;
+  animation: loading-fade 1.2s linear infinite;
+}
+
+@for $i from 1 through 12 {
+  .loading-tick:nth-of-type(#{$i + 1}) {
+    transform: rotate(30deg * $i);
+    animation-delay: 0.1s * $i;
+  }
+}
+
+.loading-tick:nth-of-type(1) {
+  top: 30%;
+  left: 50%;
+}
+
+.loading-tick:nth-of-type(2) {
+  top: 33%;
+  left: 60%;
+}
+
+.loading-tick:nth-of-type(3) {
+  top: 40%;
+  left: 67%;
+}
+
+.loading-tick:nth-of-type(4) {
+  top: 50%;
+  left: 70%;
+}
+
+.loading-tick:nth-of-type(5) {
+  top: 60%;
+  left: 67%;
+}
+
+.loading-tick:nth-of-type(6) {
+  top: 67%;
+  left: 60%;
+}
+
+.loading-tick:nth-of-type(7) {
+  top: 70%;
+  left: 50%;
+}
+
+.loading-tick:nth-of-type(8) {
+  top: 67%;
+  left: 40%;
+}
+
+.loading-tick:nth-of-type(9) {
+  top: 60%;
+  left: 33%;
+}
+
+.loading-tick:nth-of-type(10) {
+  top: 50%;
+  left: 30%;
+}
+
+.loading-tick:nth-of-type(11) {
+  top: 40%;
+  left: 33%;
+}
+
+.loading-tick:nth-of-type(12) {
+  top: 33%;
+  left: 40%;
+}
+
+@keyframes loading-fade {
+  from {
+    background: $gray-medium;
+  }
+}
+</style>
