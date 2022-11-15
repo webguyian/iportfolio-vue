@@ -2,10 +2,13 @@ import { onMounted, reactive, ref, watch } from 'vue';
 import { useFetch, useStorageCache } from '@/composables/browser/hooks';
 
 import { API_MAIL, defaultBody, defaultValues } from './constants';
+import type { MailFields } from './types';
 import { useRouter } from 'vue-router';
 
-export const useMail = () => {
-  const fields = reactive({ ...defaultValues });
+export const useMail = (populateFields?: MailFields) => {
+  const initialValues =
+    populateFields && populateFields.body ? populateFields : defaultValues;
+  const fields = reactive({ ...initialValues });
   const router = useRouter();
   const endpoint = ref('');
   const options = ref();

@@ -78,7 +78,7 @@ import UILink from './UILink.vue';
 import UIText from './UIText.vue';
 import { useMail } from '@/composables/mail/hooks';
 
-const { actions, fields, state } = useMail();
+const { actions, fields, state } = useMail(window.history.state);
 const title = computed(() => fields.subject || 'New Message');
 const attachment = '';
 const handleFocus = (event: Event) => {
