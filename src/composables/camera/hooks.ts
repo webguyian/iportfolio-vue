@@ -172,7 +172,7 @@ export const useCamera = () => {
     };
 
     photos.value.push(data);
-    setValue(photos);
+    setValue(photos.value);
 
     controls.button = 'enabled';
   };

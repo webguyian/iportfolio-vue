@@ -45,22 +45,19 @@ export const useLocalStorage = (
   const setValue = (newValue: any) => {
     try {
       // Save state
-      storedValue.value = newValue.value;
+      storedValue.value = newValue;
 
-      if (deleteFn && deleteFn(newValue.value)) {
+      if (deleteFn && deleteFn(newValue)) {
         // Remove item from local storage
         window.localStorage.removeItem(key);
       } else {
-        if (
-          typeof newValue.value === 'object' &&
-          !(newValue.value instanceof Array)
-        ) {
+        if (typeof newValue === 'object' && !(newValue instanceof Array)) {
           // Include timestamp on objects
-          newValue.value.timestamp = Date.now();
+          newValue.timestamp = Date.now();
         }
 
         // Save to local storage
-        window.localStorage.setItem(key, JSON.stringify(newValue.value));
+        window.localStorage.setItem(key, JSON.stringify(newValue));
       }
     } catch (error) {
       // Drop error
@@ -90,7 +87,7 @@ export const useStorageCache = (
 
   onUnmounted(() => {
     if (key && currentValue.value) {
-      setValue(currentValue);
+      setValue(currentValue.value);
     }
   });
 
