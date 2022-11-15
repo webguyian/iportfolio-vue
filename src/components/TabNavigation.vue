@@ -25,7 +25,6 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router';
 import UIIcon from './UIIcon.vue';
-import UILink from './UILink.vue';
 import UIText from './UIText.vue';
 
 type Tab = {

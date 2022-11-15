@@ -10,15 +10,15 @@
     <UIIcon v-if="icon" :name="icon" :size="iconSize" /> <slot v-else />
     <UIText v-if="withLabel" class="ui-link-label"><slot /></UIText>
   </a>
-  <RouterLink
+  <a
     v-else-if="back"
     v-bind="$attrs"
     :class="['ui-link', 'ui-link--back']"
-    :to="to"
+    @click="router.go(-1)"
   >
     <UIIcon name="chevron-left" />
     Back
-  </RouterLink>
+  </a>
   <RouterLink
     v-else
     v-bind="$attrs"
@@ -32,7 +32,7 @@
 </template>
 
 <script setup lang="ts">
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
 import UIIcon from './UIIcon.vue';
 import UIText from './UIText.vue';
 
@@ -52,6 +52,8 @@ withDefaults(
     withLabel: false
   }
 );
+
+const router = useRouter();
 </script>
 
 <style lang="scss">
