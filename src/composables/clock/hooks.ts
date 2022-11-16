@@ -267,7 +267,7 @@ export const useTimer = (duration: ComputedRef<number>) => {
     running,
     started
   });
-  const storage = useStorageCache(
+  const cache = useStorageCache(
     'timer',
     values,
     (storedValue) => storedValue.allSeconds < 1
@@ -330,18 +330,18 @@ export const useTimer = (duration: ComputedRef<number>) => {
   };
 
   watch(duration, (durationValue) => {
-    const expiration = getExpiration(durationValue, storage);
+    const expiration = getExpiration(durationValue, cache.value);
 
     start(expiration);
 
-    if (storage) {
-      if (storage.running) {
+    if (cache) {
+      if (cache.value.running) {
         resume();
-      } else if (storage.started) {
+      } else if (cache.value.started) {
         started.value = true;
       }
 
-      if (duration !== storage.duration) {
+      if (duration !== cache.value.duration) {
         // Remove timer from local storage
         window.localStorage.removeItem('timer');
       }
