@@ -64,7 +64,7 @@ export default {
 </script>
 
 <style lang="scss">
-$pi: 22/7;
+$pi: math.div(22, 7);
 $radius: 175;
 $circumference: 2 * $pi * $radius;
 $circle-size: #{$radius * 2}px;
