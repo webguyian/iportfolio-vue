@@ -6,4 +6,5 @@ export type MusicTrack = {
   href: string;
   id: string;
   name: string;
+  previewURL: string;
 };
