@@ -2,7 +2,7 @@
   <a
     v-if="external"
     v-bind="$attrs"
-    :href="to"
+    :href="typeof to === 'string' ? to : undefined"
     :class="['ui-link', icon && 'ui-link--with-icon']"
     target="_blank"
     rel="noopener noreferrer"
@@ -43,7 +43,7 @@ withDefaults(
     icon?: string;
     iconSize?: string;
     state?: object;
-    to: string;
+    to: string | object;
     withLabel?: boolean;
   }>(),
   {
