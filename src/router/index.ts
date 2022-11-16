@@ -91,6 +91,26 @@ const router = createRouter({
       ]
     },
     {
+      path: '/music',
+      name: 'music',
+      component: () => import('../views/MusicView.vue'),
+      redirect: {
+        name: 'library'
+      },
+      children: [
+        {
+          path: 'library',
+          name: 'library',
+          component: () => import('../components/MusicLibrary.vue')
+        },
+        {
+          path: 'player',
+          name: 'player',
+          component: () => import('../components/MusicPlayer.vue')
+        }
+      ]
+    },
+    {
       path: '/map',
       name: 'map',
       component: AppView
