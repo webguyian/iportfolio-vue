@@ -34,10 +34,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
 import UIButton from './UIButton.vue';
 import UIText from './UIText.vue';
-import { useRefControlledFocus } from '@/composables/reminders/hooks';
+import {
+  useRefControlledFocus,
+  useReminder
+} from '@/composables/reminders/hooks';
 
 const props = withDefaults(
   defineProps<{
@@ -56,31 +58,8 @@ const props = withDefaults(
 const emit = defineEmits(['remove', 'submit', 'update']);
 
 const inputRef = useRefControlledFocus(props.focused);
-const checked = ref(props.checked);
-const value = ref(props.value);
-const swiped = ref(false);
-const swiping = ref(false);
-
-const onSwipeLeft = () => {
-  if (swiped.value) {
-    swiping.value = true;
-  } else {
-    swiped.value = true;
-  }
-};
-
-const onSwipeRight = () => {
-  swiping.value = false;
-  swiped.value = false;
-};
-
-watch([checked, value], (newValue) => {
-  emit('update', {
-    id: props.id,
-    checked: newValue[0],
-    value: newValue[1]
-  });
-});
+const { checked, value, swiped, swiping, onSwipeLeft, onSwipeRight } =
+  useReminder(props, emit);
 </script>
 
 <style lang="scss">
