@@ -111,6 +111,11 @@ const router = createRouter({
       ]
     },
     {
+      path: '/reminders',
+      name: 'reminders',
+      component: () => import('../views/RemindersView.vue')
+    },
+    {
       path: '/map',
       name: 'map',
       component: AppView
