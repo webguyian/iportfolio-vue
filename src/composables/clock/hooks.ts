@@ -168,7 +168,7 @@ export const useRadialOffset = (
   const initialSeconds = ref(allSeconds.value);
   const offset = ref(0);
 
-  watch([allSeconds, duration, offset], () => {
+  onMounted(() => {
     if (!offset.value) {
       const initialOffset = (allSeconds.value / duration.value) * circumference;
       const updatedOffset = circumference - Math.round(initialOffset);
@@ -329,6 +329,13 @@ export const useTimer = (duration: ComputedRef<number>) => {
     }
   };
 
+  onMounted(() => {
+    if (cache.value) {
+      started.value = cache.value.started;
+      running.value = cache.value.running;
+    }
+  });
+
   watch(duration, (durationValue) => {
     const expiration = getExpiration(durationValue, cache.value);
 
@@ -337,11 +344,9 @@ export const useTimer = (duration: ComputedRef<number>) => {
     if (cache) {
       if (cache.value.running) {
         resume();
-      } else if (cache.value.started) {
-        started.value = true;
       }
 
-      if (duration !== cache.value.duration) {
+      if (durationValue !== cache.value.duration) {
         // Remove timer from local storage
         window.localStorage.removeItem('timer');
       }

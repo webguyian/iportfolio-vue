@@ -7,6 +7,7 @@
     />
     <TimerCountdown v-if="showCountdown" v-bind="timer" />
     <TimerControls
+      :disabled="!showCountdown"
       secondary-label="Cancel"
       :start-label="startLabel"
       stop-label="Pause"
@@ -26,21 +27,29 @@ import { useDuration, useTimer } from '@/composables/clock/hooks';
 
 const { duration, values, setDuration } = useDuration();
 const timer = useTimer(duration);
-const showCountdown = ref(false);
-const startLabel = computed(() => (showCountdown.value ? 'Resume' : 'Start'));
+const showCountdown = ref(timer.started.value);
+const startLabel = computed(() => (timer.started.value ? 'Resume' : 'Start'));
 
 const handleToggle = () => {
-  if (!timer.running.value) {
+  timer.toggle();
+
+  if (timer.started.value) {
     showCountdown.value = true;
   }
-
-  timer.toggle();
 };
 
 const handleCancel = () => {
   timer.restart();
+
   showCountdown.value = false;
 };
+
+watch(timer.started, (hasStarted) => {
+  if (!showCountdown.value && hasStarted) {
+    // Timer started, show countdown
+    showCountdown.value = true;
+  }
+});
 
 watch([timer.running, timer.allSeconds], () => {
   if (timer.running.value && timer.allSeconds.value === 0) {
