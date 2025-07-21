@@ -116,6 +116,11 @@ const router = createRouter({
       component: () => import('../views/RemindersView.vue')
     },
     {
+      path: '/notes',
+      name: 'notes',
+      component: () => import('../views/NotesView.vue')
+    },
+    {
       path: '/map',
       name: 'map',
       component: AppView
